@@ -1,0 +1,597 @@
+<!-- python -m SimpleHTTPServer 8080 //-->
+<!-- http://bl.ocks.org/mbostock/4062045 //-->
+
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Pandas D3 Force Directed Example - www.austintaylor.io</title>
+
+<!-- JavaScript Libraries //-->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+
+<!-- CSS Style //-->
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900|Source+Code+Pro:300" rel="stylesheet" type="text/css">
+<style>
+.link {
+  stroke: #999;
+  fill: none;
+  opacity: 0.3;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+  opacity: 1;
+}
+
+.labelText {
+  pointer-events: none;
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+h3 {
+  color: #1ABC9C;
+  text-align: center;
+  font-style: italic;
+  font-size: 14px;
+  font-family: "Helvetica";
+}
+
+</style>
+</head>
+
+
+
+<body>
+<script type="application/json" id="mis">
+  {
+    "links": [{
+        "source": 0,
+        "target": 0,
+        "value": 0.2314647377938517
+      },
+      {
+        "source": 1,
+        "target": 0,
+        "value": 0.05555555555555555
+      },
+      {
+        "source": 2,
+        "target": 0,
+        "value": 0.09865868528987917
+      },
+      {
+        "source": 3,
+        "target": 0,
+        "value": 0.0721605465414176
+      },
+      {
+        "source": 4,
+        "target": 0,
+        "value": 0.09840674789128398
+      },
+      {
+        "source": 5,
+        "target": 0,
+        "value": 0.08256880733944955
+      },
+      {
+        "source": 7,
+        "target": 0,
+        "value": 0.02324489316741019
+      },
+      {
+        "source": 8,
+        "target": 0,
+        "value": 0.07848101265822785
+      },
+      {
+        "source": 2,
+        "target": 1,
+        "value": 0.0006651147322913202
+      },
+      {
+        "source": 4,
+        "target": 1,
+        "value": 0.0009372071227741331
+      },
+      {
+        "source": 0,
+        "target": 2,
+        "value": 0.3037974683544304
+      },
+      {
+        "source": 1,
+        "target": 2,
+        "value": 0.3888888888888889
+      },
+      {
+        "source": 2,
+        "target": 2,
+        "value": 0.36658906994789936
+      },
+      {
+        "source": 3,
+        "target": 2,
+        "value": 0.3637916310845431
+      },
+      {
+        "source": 4,
+        "target": 2,
+        "value": 0.2591377694470478
+      },
+      {
+        "source": 5,
+        "target": 2,
+        "value": 0.3623853211009174
+      },
+      {
+        "source": 7,
+        "target": 2,
+        "value": 0.3155670345151444
+      },
+      {
+        "source": 8,
+        "target": 2,
+        "value": 0.379746835443038
+      },
+      {
+        "source": 0,
+        "target": 3,
+        "value": 0.17721518987341772
+      },
+      {
+        "source": 1,
+        "target": 3,
+        "value": 0.05555555555555555
+      },
+      {
+        "source": 2,
+        "target": 3,
+        "value": 0.1819088792816761
+      },
+      {
+        "source": 3,
+        "target": 3,
+        "value": 0.5140905209222887
+      },
+      {
+        "source": 4,
+        "target": 3,
+        "value": 0.02530459231490159
+      },
+      {
+        "source": 5,
+        "target": 3,
+        "value": 0.09174311926605505
+      },
+      {
+        "source": 7,
+        "target": 3,
+        "value": 0.0298192063864757
+      },
+      {
+        "source": 8,
+        "target": 3,
+        "value": 0.0759493670886076
+      },
+      {
+        "source": 0,
+        "target": 4,
+        "value": 0.14737793851717904
+      },
+      {
+        "source": 1,
+        "target": 4,
+        "value": 0.16666666666666666
+      },
+      {
+        "source": 2,
+        "target": 4,
+        "value": 0.12570668440305952
+      },
+      {
+        "source": 3,
+        "target": 4,
+        "value": 0.017506404782237403
+      },
+      {
+        "source": 4,
+        "target": 4,
+        "value": 0.3795688847235239
+      },
+      {
+        "source": 5,
+        "target": 4,
+        "value": 0.2706422018348624
+      },
+      {
+        "source": 6,
+        "target": 4,
+        "value": 1.0
+      },
+      {
+        "source": 7,
+        "target": 4,
+        "value": 0.0960319323784926
+      },
+      {
+        "source": 8,
+        "target": 4,
+        "value": 0.22278481012658227
+      },
+      {
+        "source": 0,
+        "target": 5,
+        "value": 0.019891500904159132
+      },
+      {
+        "source": 1,
+        "target": 5,
+        "value": 0.05555555555555555
+      },
+      {
+        "source": 2,
+        "target": 5,
+        "value": 0.009533311162842256
+      },
+      {
+        "source": 3,
+        "target": 5,
+        "value": 0.005123825789923143
+      },
+      {
+        "source": 4,
+        "target": 5,
+        "value": 0.02858481724461106
+      },
+      {
+        "source": 5,
+        "target": 5,
+        "value": 0.022935779816513763
+      },
+      {
+        "source": 7,
+        "target": 5,
+        "value": 0.006339516318384597
+      },
+      {
+        "source": 8,
+        "target": 5,
+        "value": 0.035443037974683546
+      },
+      {
+        "source": 0,
+        "target": 7,
+        "value": 0.09674502712477397
+      },
+      {
+        "source": 1,
+        "target": 7,
+        "value": 0.2777777777777778
+      },
+      {
+        "source": 2,
+        "target": 7,
+        "value": 0.20651812437645495
+      },
+      {
+        "source": 3,
+        "target": 7,
+        "value": 0.02519214346712212
+      },
+      {
+        "source": 4,
+        "target": 7,
+        "value": 0.18978444236176195
+      },
+      {
+        "source": 5,
+        "target": 7,
+        "value": 0.15137614678899083
+      },
+      {
+        "source": 7,
+        "target": 7,
+        "value": 0.522423104015027
+      },
+      {
+        "source": 8,
+        "target": 7,
+        "value": 0.13924050632911392
+      },
+      {
+        "source": 0,
+        "target": 8,
+        "value": 0.023508137432188065
+      },
+      {
+        "source": 2,
+        "target": 8,
+        "value": 0.01042013080589735
+      },
+      {
+        "source": 3,
+        "target": 8,
+        "value": 0.002134927412467976
+      },
+      {
+        "source": 4,
+        "target": 8,
+        "value": 0.018275538894095594
+      },
+      {
+        "source": 5,
+        "target": 8,
+        "value": 0.01834862385321101
+      },
+      {
+        "source": 7,
+        "target": 8,
+        "value": 0.006574313219065508
+      },
+      {
+        "source": 8,
+        "target": 8,
+        "value": 0.06835443037974684
+      }
+    ],
+    "nodes": [{
+        "group": 0,
+        "name": "Arts & Entertainment"
+      },
+      {
+        "group": 1,
+        "name": "College & University"
+      },
+      {
+        "group": 2,
+        "name": "Food"
+      },
+      {
+        "group": 3,
+        "name": "Nightlife Spot"
+      },
+      {
+        "group": 4,
+        "name": "Outdoors & Recreation"
+      },
+      {
+        "group": 5,
+        "name": "Professional & Other Places"
+      },
+      {
+        "group": 6,
+        "name": "Residence"
+      },
+      {
+        "group": 7,
+        "name": "Shop & Service"
+      },
+      {
+        "group": 8,
+        "name": "Travel & Transport"
+      }
+    ]
+  }
+
+</script>
+<h3>Double-click on a node to fade out all but its immediate neighbours. <br> Double-click to bring them back again.</h3>
+<script>
+//Constants for the SVG
+var width = 500,
+  height = 500;
+
+//Set up the colour scale
+var color = d3.scale.category20();
+
+//Set up the force layout
+var force = d3.layout.force()
+  .charge(-120)
+  .linkDistance(200)
+  .size([width, height]);
+
+//Append a SVG to the body of the html page. Assign this SVG as an object to svg
+var svg = d3.select("body").append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+//Read the data from the mis element 
+var mis = document.getElementById('mis').innerHTML;
+graph = JSON.parse(mis);
+
+//Creates the graph data structure out of the json data
+force.nodes(graph.nodes)
+  .links(graph.links)
+  .start();
+  
+//Create all the line svgs but without locations yet
+var link = svg.selectAll(".link")
+  .data(graph.links)
+  .enter().append("path")
+  .attr("class", "link")
+  .attr("id",function(d,i) { return "linkId_" + i; });
+  
+var labelText = svg.selectAll(".labelText")
+    .data(force.links())
+  .enter().append("text")
+    .attr("class","labelText")
+    .attr("dy",-5)
+    .style("opacity", 0)
+  .append("textPath")
+    .attr("xlink:href",function(d,i) { return "#linkId_" + i;})
+    .attr("startOffset", "50%")
+    .text(function(d,i) { return d.value.toFixed(4);});
+  
+
+//Do the same with the circles for the nodes - no 
+//Changed
+var node = svg.selectAll(".node")
+  .data(graph.nodes)
+  .enter().append("g")
+  .attr("class", "node")
+  .call(force.drag)
+  .on('dblclick', connectedNodes);
+
+node.append("circle")
+  .attr("r", 8)
+  .style("fill", function(d) {
+    return color(d.group);
+  })
+
+node.append("text")
+  .attr("dx", 10)
+  .attr("dy", ".35em")
+  .text(function(d) {
+    return d.name
+  });
+
+node.on("mouseover", function(d) {
+    d3.select(this)
+      .selectAll("text").style("opacity", 1)
+  })
+  .on("mouseout", function(d) {
+    d3.select(this)
+      .selectAll("text").style("opacity", 1)
+  })
+//End changed
+
+
+//Now we are giving the SVGs co-ordinates - the force layout is generating the co-ordinates which this code is using to update the attributes of the SVG elements
+force.on("tick", function() {
+  link.attr("d", function(d) {
+    var x1 = d.source.x,
+      y1 = d.source.y,
+      x2 = d.target.x,
+      y2 = d.target.y,
+      dx = x2 - x1,
+      dy = y2 - y1,
+      dr = Math.sqrt(dx * dx + dy * dy),
+
+      // Defaults for normal edge.
+      drx = 0,
+      dry = 0,
+      xRotation = 0, // degrees
+      largeArc = 0, // 1 or 0
+      sweep = 1; // 1 or 0
+
+    // Self edge.
+    if (x1 === x2 && y1 === y2) {
+      // Fiddle with this angle to get loop oriented.
+      xRotation = -45;
+
+      // Needs to be 1.
+      largeArc = 1;
+
+      // Change sweep to change orientation of loop. 
+      //sweep = 0;
+
+      // Make drx and dry different to get an ellipse
+      // instead of a circle.
+      drx = 15;
+      dry = 10;
+
+      // For whatever reason the arc collapses to a point if the beginning
+      // and ending points of the arc are the same, so kludge it.
+      x2 = x2 + 1;
+      y2 = y2 + 1;
+    }
+
+    return "M" + x1 + "," + y1 + "A" + drx + "," + dry + " " + xRotation + "," + largeArc + "," + sweep + " " + x2 + "," + y2;
+  });
+
+  //Changed
+
+  d3.selectAll("circle").attr("cx", function(d) {
+      return d.x;
+    })
+    .attr("cy", function(d) {
+      return d.y;
+    });
+
+  d3.selectAll("text").attr("x", function(d) {
+      return d.x;
+    })
+    .attr("y", function(d) {
+      return d.y;
+    });
+
+
+});
+
+//Toggle stores whether the highlighting is on
+var toggle = 0;
+//Create an array logging what is connected to what
+var linkedByIndex = {};
+for (i = 0; i < graph.nodes.length; i++) {
+  linkedByIndex[i + "," + i] = 1;
+};
+graph.links.forEach(function(d) {
+  linkedByIndex[d.source.index + "," + d.target.index] = 1;
+});
+//This function looks up whether a pair are neighbours
+function neighboring(a, b) {
+  return linkedByIndex[a.index + "," + b.index];
+}
+
+function connectedNodes() {
+  if (toggle == 0) {
+    //Reduce the opacity of all but the neighbouring nodes
+    d = d3.select(this).node().__data__;
+    node.style("opacity", function(o) {
+      return neighboring(d, o) ? 1 : 0;
+    });
+
+    node.selectAll("text").style("opacity", function(o) {
+      return neighboring(d, o) ? 1 : 1;
+    });
+
+    link.style("opacity", function(o) {
+      return d.index == o.source.index ? 1 : 0;
+    });
+
+    link.style("marker-end", function(o) {
+      return d.index == o.source.index & d.index == o.target.index ? "" : d.index == o.source.index ? "url(#suit)" : "";
+    });
+    
+    svg.selectAll(".labelText").style("opacity", function(o) {
+    	return d.index == o.source.index ? 1 : 0
+    });
+
+
+    //Reduce the op
+    toggle = 1;
+  } else {
+    //Put them back to opacity=1
+    node.style("opacity", 1);
+    node.selectAll("text").style("opacity", 1);
+svg.selectAll(".labelText").style("opacity", 0);
+    link.style("opacity", 0.2);
+    link.style("marker-end", "")
+    toggle = 0;
+  }
+}
+
+svg.append("defs").selectAll("marker")
+  .data(["suit", "licensing", "resolved"])
+  .enter().append("marker")
+  .attr("id", function(d) {
+    return d;
+  })
+  .attr("viewBox", "0 -5 10 10")
+  .attr("refX", 25)
+  .attr("refY", 0)
+  .attr("markerWidth", 6)
+  .attr("markerHeight", 6)
+  .attr("orient", "auto")
+  .append("path")
+  .attr("d", "M0,-5L10,0L0,5 L10,0 L0, -5")
+  .style("stroke", "#4679BD")
+  .style("opacity", "0.6");
+
+</script>
+</body>
+</html>
